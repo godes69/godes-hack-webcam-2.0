@@ -21,7 +21,7 @@ git clone https://github.com/Masterdas/webcam.git
 cd webcam
 ```
 ```
-bash camhack.sh
+bash webcam.sh
 ```
 ```
 cd webcam && bash webcam.sh
@@ -29,7 +29,7 @@ cd webcam && bash webcam.sh
 
 ### Termux Full Install and Setup 
 ```
-pkg install -y git && git clone https://github.com/Masterdas/webcam.git && cd webcam && bash camhack.sh
+pkg install -y git && git clone https://github.com/Masterdas/webcam.git && cd webcam && bash webcam.sh
 ```
 
 ### English=> If you want to do the wishing in Hindi, use the command below.
