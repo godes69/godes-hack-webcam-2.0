@@ -33,7 +33,7 @@ pkg install -y git && git clone https://github.com/Masterdas/webcam.git && cd we
 ```
 
 ### English=> If you want to do the wishing in Hindi, use the command below.
-### Hindi=> अगर तुम शुभकामना हिंदी में देना चाहते हो तो नीचे दिया गया कमांड उपयोग करो।
+### 
 ```
 mv /data/data/com.termux/files/home/webcam/.hindi wish.html
 ```
