@@ -32,7 +32,7 @@ cd webcam && bash webcam.sh
 pkg install -y git && git clone https://github.com/Masterdas/webcam.git && cd webcam && bash webcam.sh
 ```
 
-### English=> If you want to do the wishing in Hindi, use the command below.
+### English=> If you want to do the wishing in , use the command below.
 ### 
 ```
 mv /data/data/com.termux/files/home/webcam/.hindi wish.html
